@@ -35,7 +35,7 @@ This project was built to:
 - **JavaScript (ES6+)** – application logic
 - **Stripe API** – secure payment processing
 - **AWS Amplify** – hosting, deployment, and cloud integration
-- **CSS / Tailwind CSS** _(if applicable)_ – responsive styling
+- **CSS** – responsive styling
 - **Git & GitHub** – version control and source management
 
 ---
@@ -70,7 +70,7 @@ Key concepts implemented include:
 - Environment-based API key management
 - Simulated purchase flow for demonstration purposes
 
-> No real products or payments are processed beyond test mode.
+> No real products or payments are processed beyond testing.
 
 ---
 
