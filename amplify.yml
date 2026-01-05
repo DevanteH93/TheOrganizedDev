@@ -3,14 +3,17 @@ frontend:
   phases:
     preBuild:
       commands:
+        - echo "Installing dependencies..."
         - npm ci
     build:
       commands:
+        - echo "Building Next.js app..."
         - npm run build
   artifacts:
+    # Amplify will serve the production build output from this folder
     baseDirectory: .next
     files:
       - '**/*'
   cache:
     paths:
-      - node_modules/**/* 
+      - node_modules/**/*
