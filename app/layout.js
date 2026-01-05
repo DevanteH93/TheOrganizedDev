@@ -68,7 +68,7 @@ export default function RootLayout({ children }) {
 
 
             <div className="socials">
-              <p>© <a href="https://harveystack.netlify.app/" target="_blank">DevanteHarvey</a> 2025<br /> Built with NextJS & <a target="_blank" href="https://www.fantacss.smoljames.com/">FantaCSS</a> 🎨</p>
+              <p>© <a href="https://harveystack.netlify.app/" target="_blank">DevanteHarvey</a> 2025<br /> Built with NextJS & <a target="_blank" href="https://stripe.com/">Stripe</a> 💳</p>
               </div>
               <div className="social-links">
                 <Link href={'/'} target="_blank"><i className="fa-brands fa-github"></i></Link>
