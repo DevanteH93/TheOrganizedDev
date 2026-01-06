@@ -1,30 +1,36 @@
 import ImageBanner from "@/components/ImageBanner";
 import Products from "@/components/Products";
+import Stripe from "stripe";
 
 export const dynamic = "force-dynamic";
 
-async function getProducts() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products`,
-    { cache: "no-store" }
-  );
-
-  if (!res.ok) {
-    console.error("Failed to fetch products");
-    return [];
-  }
-
-  return res.json();
-}
-
 export default async function Home() {
-  const products = await getProducts();
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: "2023-10-16",
+  });
+
+  const productsRes = await stripe.products.list({
+    active: true,
+    expand: ["data.default_price"],
+  });
+
+  const products = productsRes.data.map(p => {
+    const price = p.default_price;
+    return {
+      ...p,
+      prices: price ? [{
+        id: price.id,
+        unit_amount: price.unit_amount,
+        currency: price.currency,
+      }] : [],
+    };
+  });
 
   let planner = null;
   let stickers = [];
 
   for (const product of products) {
-    if (product.name === "Medieval Dragon Month Planner") {
+    if (product.metadata?.type === "planner") {
       planner = product;
     } else {
       stickers.push(product);
@@ -34,7 +40,9 @@ export default async function Home() {
   return (
     <>
       <ImageBanner />
-      <Products planner={planner} stickers={stickers} />
+      <section>
+        <Products planner={planner} stickers={stickers} />
+      </section>
     </>
   );
 }
