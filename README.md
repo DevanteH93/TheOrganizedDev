@@ -74,6 +74,7 @@ Key concepts implemented include:
 
 ---
 
+
 ## ☁️ AWS Amplify Hosting
 - Application deployed via AWS Amplify
 - Continuous deployment from GitHub
