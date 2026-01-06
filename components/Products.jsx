@@ -13,7 +13,17 @@ export default function Products(props) {
     console.log(cart);
 
 
-    if ( !stickers.length || !planner ) { return null }
+
+if (!planner) {
+  return <p>Planner unavailable</p>
+}
+
+if (!stickers?.length) {
+  return <p>No stickers available</p>
+}
+
+
+    // if ( !stickers.length || !planner ) { return null }
 
     return (
         <>
@@ -84,7 +94,13 @@ export default function Products(props) {
                                     <p className="text-medium">
                                         {stickerName}</p>
                                         <p>{sticker.description}</p>
-                                    <h4><span>$</span>{sticker.prices[0].unit_amount / 100}</h4>
+                                        <h4>
+                                        <span>$</span>
+                                        {sticker.prices?.[0]?.unit_amount
+                                            ? sticker.prices[0].unit_amount / 100
+                                            : '—'}
+                                        </h4>
+                                    {/* <h4><span>$</span>{sticker.prices[0].unit_amount / 100}</h4> */}
                                     <button onClick={() => {
                                 const stickerPriceId = sticker.default_price
                                 handleIncrementProduct(stickerPriceId, 1, sticker)

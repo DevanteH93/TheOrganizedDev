@@ -1,42 +1,34 @@
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2023-10-16'
+  apiVersion: "2023-10-16",
 });
 
 export async function GET() {
-    try {
-        // fetch all the active products from stripe
-        const products = await stripe.products.list({ active: true })
+  try {
+    const products = await stripe.products.list({
+      active: true,
+      expand: ["data.default_price"],
+    });
 
-        // fetch all the prices that are active
-        const prices = await stripe.prices.list({ active: true })
+    const formatted = products.data.map(p => {
+      const price = p.default_price;
+      return {
+        id: p.id,
+        name: p.name,
+        description: p.description,
+        default_price: price?.id,
+        prices: price ? [{
+          id: price.id,
+          unit_amount: price.unit_amount,
+          currency: price.currency,
+        }] : [],
+      };
+    });
 
-        // combine the products and their associated prices
-        const combinedData = products.data.map((product) => {
-            const productPrices = prices.data.filter((price) => {
-                return price.product === product.id
-            })
-
-            return {
-                ...product,
-                prices: productPrices.map((price) => {
-                    return {
-                        id: price.id,
-                        unit_amount: price.unit_amount,
-                        currency: price.currency,
-                        recurring: price.recurring
-                    }
-                })
-            }
-        })
-
-
-        // send the combined data as json
-        return Response.json(combinedData)
-
-    } catch (err) {
-        console.error('Error fetching data from stripe: ', err.message)
-        return Response.json({ error: 'Failed to fetch data from stripe' })
-    }
+    return Response.json(formatted);
+  } catch (err) {
+    console.error("Stripe error:", err);
+    return Response.json([], { status: 500 });
+  }
 }
