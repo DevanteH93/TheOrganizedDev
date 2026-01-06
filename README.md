@@ -54,6 +54,7 @@ This promotes maintainability, separation of concerns, and scalability.
 
 ---
 
+
 ## 🛒 Cart & State Management
 - Cart state updates in real time as products are added or removed
 - Overlay-based cart UI for improved UX
