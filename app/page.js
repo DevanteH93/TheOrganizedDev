@@ -2,18 +2,10 @@ import ImageBanner from "@/components/ImageBanner";
 import Products from "@/components/Products";
 import Stripe from "stripe";
 
-export const dynamic = "force-dynamic";
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: "2023-10-16" });
 
 export default async function Home() {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: "2023-10-16",
-  });
-
-  const productsRes = await stripe.products.list({
-    active: true,
-    expand: ["data.default_price"],
-  });
-
+  const productsRes = await stripe.products.list({ active: true, expand: ["data.default_price"] });
   const products = productsRes.data.map(p => {
     const price = p.default_price;
     return {
