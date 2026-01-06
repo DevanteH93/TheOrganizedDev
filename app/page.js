@@ -4,11 +4,12 @@ import Products from "@/components/Products";
 export const dynamic = 'force-dynamic';
 
 
-
 export async function getProducts() {
-  const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   try {
-    const response = await fetch(baseURL + '/api/products', { cache: 'no-store' });
+    const response = await fetch('/api/products', {
+      cache: 'no-store',
+    });
+
     if (!response.ok) throw new Error('Failed to fetch products');
     return await response.json();
   } catch (e) {
@@ -16,6 +17,20 @@ export async function getProducts() {
     return [];
   }
 }
+
+
+
+// export async function getProducts() {
+//   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+//   try {
+//     const response = await fetch(baseURL + '/api/products', { cache: 'no-store' });
+//     if (!response.ok) throw new Error('Failed to fetch products');
+//     return await response.json();
+//   } catch (e) {
+//     console.error('Fetch error:', e);
+//     return [];
+//   }
+// }
 
 
 

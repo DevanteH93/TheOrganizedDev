@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import '../../../envConfig'
+// import '../../../envConfig'
 
 const API_KEY = process.env.STRIPE_SECRET_KEY;
 const stripe = new Stripe(API_KEY, {
