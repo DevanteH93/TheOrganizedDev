@@ -61,6 +61,7 @@ This promotes maintainability, separation of concerns, and scalability.
 - Derived values (totals, item counts) calculated dynamically
 - Component-driven updates without page reloads
 
+
 ---
 
 ## 💳 Stripe Checkout Integration
