@@ -8,35 +8,42 @@ export default function ProductsProvider({ children }) {
     // Change cart from an object to an array for easier multi-item handling
     const [cart, setCart] = useState([]);
 
-    function handleIncrementProduct(price_id, num, data, noIncrement = false) {
-        setCart(prevCart => {
-            // Check if this product is already in the cart
-            const index = prevCart.findIndex(item => item.price_id === price_id);
-            let newCart = [...prevCart];
+function handleIncrementProduct(price_id, num, data, noIncrement = false) {
+  // ✅ force string
+  const safePriceId =
+    typeof price_id === 'string' ? price_id : price_id.id;
 
-            if (index !== -1) {
-                // Update quantity
-                newCart[index] = {
-                    ...newCart[index],
-                    quantity: noIncrement ? num : newCart[index].quantity + num
-                };
+  setCart(prevCart => {
+    const index = prevCart.findIndex(
+      item => item.price_id === safePriceId
+    );
 
-                // Remove if quantity is 0 or less
-                if (newCart[index].quantity <= 0) {
-                    newCart.splice(index, 1);
-                }
-            } else {
-                // Add new item
-                newCart.push({
-                    ...data,
-                    price_id,
-                    quantity: num
-                });
-            }
+    let newCart = [...prevCart];
 
-            return newCart;
-        });
+    if (index !== -1) {
+      newCart[index] = {
+        ...newCart[index],
+        quantity: noIncrement
+          ? Number(num)
+          : newCart[index].quantity + Number(num),
+      };
+
+      if (newCart[index].quantity <= 0) {
+        newCart.splice(index, 1);
+      }
+    } else {
+      newCart.push({
+        ...data,
+        price_id: safePriceId, // ✅ GUARANTEED STRING
+        quantity: Number(num),
+      });
     }
+
+    return newCart;
+  });
+}
+
+
 
     const value = {
         cart,
