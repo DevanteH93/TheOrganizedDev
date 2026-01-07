@@ -18,6 +18,7 @@ This project was built to:
 
 ---
 
+
 ## 🚀 Core Features
 - Add and remove products from a shopping cart
 - Live cart value updates based on user interaction
