@@ -67,13 +67,15 @@ export default function RootLayout({ children }) {
               </div> 
 
 
+              {/* update the link (hrefs) below and if needed make changes to the lines of code above this msg -- DELETE THIS NOTE WHEN DONE!!!!!!! */}
+
             <div className="socials">
-              <p>© <a href="https://harveystack.netlify.app/" target="_blank">DevanteHarvey</a> 2025<br /> Built with NextJS & <a target="_blank" href="https://stripe.com/">Stripe</a> 💳</p>
+              <p>© <a href="https://www.linkedin.com/in/devante-harvey-2281b083/" target="_blank">DevanteHarvey</a> 2025<br /> Built with NextJS & <a target="_blank" href="https://stripe.com/">Stripe</a> 💳</p>
               </div>
               <div className="social-links">
-                <Link href={'/'} target="_blank"><i className="fa-brands fa-github"></i></Link>
-                <Link href={'/'} target="_blank"><i className="fa-brands fa-linkedin-in"></i></Link>
-                <Link href={'/'} target="_blank"><i className="fa-regular fa-envelope"></i></Link>
+                <Link href={'https://github.com/DevanteH93'} target="_blank"><i className="fa-brands fa-github"></i></Link>
+                <Link href={'https://www.linkedin.com/in/devante-harvey-2281b083/'} target="_blank"><i className="fa-brands fa-linkedin-in"></i></Link>
+                <Link href={'mailto:devanteh93@gmail.com'} target="_blank"><i className="fa-regular fa-envelope"></i></Link>
             </div>
           </footer>
         </div>
